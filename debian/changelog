@@ -1,5 +1,89 @@
-template-repository (1.0-1) unstable; urgency=medium
+pthreadpool (0.0~git20240616.560c60d-1) unstable; urgency=medium
 
-  * Initial release
+  * Team upload.
+  * d/patches: refresh, rename and add DEP3 header
+  * d/control: bump std-ver to 4.7.0.1 (no changes required)
+  * d/rules: enable all hardening
 
- -- Tsic404 <liuheng@deepin.org>  Sat, 28 Jan 2023 13:46:49 +0800
+ -- Shengqi Chen <harry-chen@outlook.com>  Wed, 04 Sep 2024 19:45:20 +0800
+
+pthreadpool (0.0~git20240616.560c60d-1~exp1) experimental; urgency=medium
+
+  * New upstream version 0.0~git20240616.560c60d
+    + This snapshot should be fine for PyTorch/v2.3.X
+  * Refresh symbols control file.
+  * Make short description different for packages.
+  * Upload to experimental
+  * Upload to experimental
+
+ -- Mo Zhou <harry-chen@outlook.com>  Wed, 04 Sep 2024 19:37:32 +0800
+
+pthreadpool (0.0~git20210507.1787867-2) unstable; urgency=medium
+
+  [ Debian Janitor ]
+  * Apply multi-arch hints. + libpthreadpool0: Add Multi-Arch: same.
+
+  [ Mo Zhou ]
+  * Bump Standards-Version to 4.6.2 (no change).
+
+ -- Mo Zhou <lumin@debian.org>  Fri, 01 Sep 2023 21:41:04 -0400
+
+pthreadpool (0.0~git20210507.1787867-1) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Mo Zhou <lumin@debian.org>  Sat, 25 Jun 2022 20:05:43 -0700
+
+pthreadpool (0.0~git20210507.1787867-1~exp1) experimental; urgency=medium
+
+  * New upstream version 0.0~git20210507.1787867
+    This snapshot should be fine for PyTorch/v1.12.X
+  * Upload to experimental.
+
+ -- Mo Zhou <lumin@debian.org>  Thu, 23 Jun 2022 22:44:16 -0700
+
+pthreadpool (0.0~git20201005.fa75e65-2) unstable; urgency=medium
+
+  * Upload to unstable.
+
+ -- Mo Zhou <lumin@debian.org>  Thu, 02 Sep 2021 02:07:37 +0000
+
+pthreadpool (0.0~git20201005.fa75e65-1) experimental; urgency=medium
+
+  * New upstream version 0.0~git20201005.fa75e65
+    Please pin to this snapshot for PyTorch/v1.8.1
+  * Refresh existint patches.
+  * Refresh symbols control file.
+
+ -- Mo Zhou <lumin@debian.org>  Thu, 20 May 2021 11:43:45 +0800
+
+pthreadpool (0.0~git20200615.029c886-2) unstable; urgency=medium
+
+  * Change maintainer into Deep Learning Team <debian-ai@l.d.o>.
+  * Please pin to this upstream snapshot for PyTorch 1.7.0.
+
+ -- Mo Zhou <lumin@debian.org>  Mon, 02 Nov 2020 11:03:57 +0800
+
+pthreadpool (0.0~git20200615.029c886-1) unstable; urgency=medium
+
+  * New upstream version 0.0~git20200615.029c886
+  * Refresh symbols control file (+ several new symbols).
+  * Bump debhelper compat level to 13.
+  * Add d/not-installed.
+
+ -- Mo Zhou <lumin@debian.org>  Wed, 02 Sep 2020 13:44:18 +0800
+
+pthreadpool (0.0~git20200423.6acde9c-2) unstable; urgency=medium
+
+  * Add the missing build dependencies.
+  * Apply wrap-and-sort.
+  * Add symbols control file for libpthreadpool0.
+  * Upload to unstable.
+
+ -- Mo Zhou <lumin@debian.org>  Wed, 29 Apr 2020 08:54:40 +0800
+
+pthreadpool (0.0~git20200423.6acde9c-1) experimental; urgency=medium
+
+  * Initial release. (Closes: #958655)
+
+ -- Mo Zhou <lumin@debian.org>  Fri, 24 Apr 2020 16:02:29 +0800

@@ -1,0 +1,65 @@
+Description: Disable downloading in CMakeLists.txt and add soversion
+Author: Mo Zhou <lumin@debian.org>
+Forwarded: not-needed
+Last-Update: 2024-09-04
+---
+This patch header follows DEP-3: http://dep.debian.net/deps/dep3/
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -41,13 +41,7 @@
+ 
+ # ---[ Download deps
+ IF(NOT DEFINED FXDIV_SOURCE_DIR)
+-  MESSAGE(STATUS "Downloading FXdiv to ${CMAKE_BINARY_DIR}/FXdiv-source (define FXDIV_SOURCE_DIR to avoid it)")
+-  CONFIGURE_FILE(cmake/DownloadFXdiv.cmake "${CMAKE_BINARY_DIR}/FXdiv-download/CMakeLists.txt")
+-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/FXdiv-download")
+-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
+-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/FXdiv-download")
+-  SET(FXDIV_SOURCE_DIR "${CMAKE_BINARY_DIR}/FXdiv-source" CACHE STRING "FXdiv source directory")
++	message("skip downloading fxdiv")
+ ENDIF()
+ 
+ IF(PTHREADPOOL_BUILD_TESTS AND NOT DEFINED GOOGLETEST_SOURCE_DIR)
+@@ -61,13 +55,9 @@
+ ENDIF()
+ 
+ IF(PTHREADPOOL_BUILD_BENCHMARKS AND NOT DEFINED GOOGLEBENCHMARK_SOURCE_DIR)
+-  MESSAGE(STATUS "Downloading Google Benchmark to ${CMAKE_BINARY_DIR}/googlebenchmark-source (define GOOGLEBENCHMARK_SOURCE_DIR to avoid it)")
+-  CONFIGURE_FILE(cmake/DownloadGoogleBenchmark.cmake "${CMAKE_BINARY_DIR}/googlebenchmark-download/CMakeLists.txt")
+-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" -G "${CMAKE_GENERATOR}" .
+-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googlebenchmark-download")
+-  EXECUTE_PROCESS(COMMAND "${CMAKE_COMMAND}" --build .
+-    WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/googlebenchmark-download")
+-  SET(GOOGLEBENCHMARK_SOURCE_DIR "${CMAKE_BINARY_DIR}/googlebenchmark-source" CACHE STRING "Google Benchmark source directory")
++	add_library(benchmark SHARED IMPORTED)
++	find_library(BENCHMARK_LIBRARY benchmark)
++	set_target_properties(benchmark PROPERTIES IMPORTED_LOCATION "${BENCHMARK_LIBRARY}")
+ ENDIF()
+ 
+ # ---[ pthreadpool library
+@@ -135,6 +125,7 @@
+ SET_TARGET_PROPERTIES(pthreadpool PROPERTIES
+   C_STANDARD 11
+   C_EXTENSIONS NO)
++set_target_properties(pthreadpool PROPERTIES VERSION 0 SOVERSION 0)
+ TARGET_LINK_LIBRARIES(pthreadpool PUBLIC pthreadpool_interface)
+ TARGET_INCLUDE_DIRECTORIES(pthreadpool PRIVATE src)
+ IF(NOT CMAKE_SYSTEM_NAME STREQUAL "Emscripten")
+@@ -153,16 +144,6 @@
+   TARGET_COMPILE_DEFINITIONS(pthreadpool PRIVATE _GNU_SOURCE=1)
+ ENDIF()
+ 
+-# ---[ Configure FXdiv
+-IF(NOT TARGET fxdiv)
+-  SET(FXDIV_BUILD_TESTS OFF CACHE BOOL "")
+-  SET(FXDIV_BUILD_BENCHMARKS OFF CACHE BOOL "")
+-  ADD_SUBDIRECTORY(
+-    "${FXDIV_SOURCE_DIR}"
+-    "${CMAKE_BINARY_DIR}/FXdiv")
+-ENDIF()
+-TARGET_LINK_LIBRARIES(pthreadpool PRIVATE fxdiv)
+-
+ INSTALL(TARGETS pthreadpool
+   LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+   ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR})
