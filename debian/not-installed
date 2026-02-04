@@ -1,0 +1,7 @@
+usr/include/gmock
+usr/include/gtest
+usr/lib/*/libgmock*
+usr/lib/*/libgtest*
+usr/lib/*/cmake/GTest
+usr/lib/*/pkgconfig/gmock*
+usr/lib/*/pkgconfig/gtest*
